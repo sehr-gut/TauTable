@@ -5,6 +5,10 @@ A Program that will generate a truth table given a string of statements or propo
 - #### [Built in Interpreter](#built-in-interpreter-logical-interpreter)
 
 
+## Cloning Repository
+You can clone this repository by typing: ```git clone https://github.com/sehr-gut/TauTable``` in your terminal
+
+
 ### Graphical User Interface (GUI)
 ### Built in Interpreter (Logical Interpreter)
 
