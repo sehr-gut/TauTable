@@ -24,13 +24,8 @@ public class Controller {
         initKey(v.p1GetInputField(), v.p1GetLabel());
     }
     public void interpret(String s) {
-        Thread task = new Thread(new Runnable(){
-            @Override
-            public void run() {
-                t = m.interpret(s);
-            }
-        });
-        task.start();
+         t = m.interpret(s);
+         System.out.println(t);
     }
     public void initController() {
         v.getRB1().addActionListener(e -> updateView());
@@ -40,28 +35,26 @@ public class Controller {
         
     }
     public void updateView() {
-        v.updateView();
         String s = v.p1GetInputField().getText();
-
-        if(!s.equals("")) {
-            
-        }
-        new SwingWorker<Void, Void>() {
+        if(!kh.isHasError() && !s.equals("") && !s.equals("Input Here")) {
+            v.updateView();
+           new SwingWorker<Void, Void>() {
             @Override
                 protected Void doInBackground() throws Exception {
-                    // Simulate a long-running task
-                    interpret(s);
-                    Thread.sleep(1000);
-                    return null;
-                }
+                        // Simulate a long-running task
+                        interpret(s);
+                        Thread.sleep(1000);
+                        return null;
+                    }
 
-                @Override
-                protected void done() {
-                    // Close the loading screen and show the result
-                    v.getFrame().remove(v.getP2());
-                    v.showTable(t);
-                }
-        }.execute();
+                    @Override
+                    protected void done() {
+                        // Close the loading screen and show the result
+                        v.getFrame().remove(v.getP2());
+                        v.showTable(t);
+                    }
+            }.execute();
+        }        
         
     }
     public void showTable() {

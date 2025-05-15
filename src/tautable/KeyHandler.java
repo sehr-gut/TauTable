@@ -28,6 +28,10 @@ public class KeyHandler implements KeyListener {
     private JTextField jtx;
     private JLabel lab;
     private boolean hasError;
+
+    public boolean isHasError() {
+        return hasError;
+    }
     
     public KeyHandler(JTextField txt, JLabel area) {
         jtx = txt;
@@ -41,14 +45,12 @@ public class KeyHandler implements KeyListener {
     }
     @Override
     public void keyPressed(KeyEvent e) {
-        
+        hasError = false;
     }
     @Override
     public void keyReleased(KeyEvent e) {
         String s = jtx.getText();
         lab.setText(s);
-        hasError = false;
-        
        if(!s.equals("")){
             Lexer lx = new Lexer(s);
             lx.scan();

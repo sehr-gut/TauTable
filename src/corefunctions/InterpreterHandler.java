@@ -13,7 +13,7 @@ import java.util.List;
  * @author Franklin Xam
  */
 public class InterpreterHandler {
-    static final Interpreter i = new Interpreter();
+    final Interpreter in = new Interpreter();
     TruthTable truthTable;
     ASTPrinter ap;
 
@@ -39,17 +39,16 @@ public class InterpreterHandler {
         setLx(new Lexer(p));
         setAp(new ASTPrinter());
         lx.scan();
-        for (Token n : lx.getTokens()) {
-            System.out.println(n);
-        }
-        System.out.println("Balls");
         setParser(new Parser(lx.getTokens()));
         Expression head = parser.parse();
-        i.interpret(head);
+        in.interpret(head);
+        
+        
+        
         ap.print(head);
-        setTruthTable(new TruthTable());
-        truthTable.setn(interpreter.n);
-        truthTable.generateTable(ap.getPropositions(), interpreter.results);
+        truthTable = new TruthTable(in.n);
+        truthTable.generateTable(ap.getPropositions(), in.results);
+        
         return truthTable;
     }
 

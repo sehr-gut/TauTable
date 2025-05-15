@@ -45,6 +45,10 @@ public class Main {
         ap.print(head);
         List<String> props = ap.getPropositions();
         List<String> results = interpreter.results;
+        truthTable.setn(interpreter.n);
+        truthTable.generateTable(props, results);
+        
+        System.out.println(truthTable);
         
     }
 

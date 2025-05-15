@@ -27,6 +27,7 @@ public class TruthTable {
         return truthTable.get(key);
     }
     public void generateTable(List<String> s, List<String> v) {
+
         for(int i = 0; i < s.size(); i++) {
             String key = s.get(i);
             String value = v.get(i);
