@@ -44,7 +44,7 @@ public class Main {
         ASTPrinter ap = new ASTPrinter();
         ap.print(head);
         List<String> props = ap.getPropositions();
-        List<Integer> results = interpreter.results;
+        List<String> results = interpreter.results;
 
         truthTable.setn(interpreter.n);
         truthTable.generateTable(props, results);
