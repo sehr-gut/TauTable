@@ -63,7 +63,6 @@ public class KeyHandler implements KeyListener {
             } else {
                 Parser p = new Parser(tokens); 
                 Expression expr = p.parse();
-                System.out.println(p.getErrorStatus());
                 if(p.getErrorStatus()) {
                     lab.setForeground(new Color(56, 56, 56));
                     lab.setText("Not a propositional statement");

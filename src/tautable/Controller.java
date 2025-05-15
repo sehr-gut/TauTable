@@ -23,18 +23,26 @@ public class Controller {
         v = view;
         initKey(v.p1GetInputField(), v.p1GetLabel());
     }
-    public void interpret(String s) {
+    private void interpret(String s) {
          t = m.interpret(s);
-         System.out.println(t);
     }
     public void initController() {
         v.getRB1().addActionListener(e -> updateView());
+        v.getRestartButton().addActionListener(e -> restart());
     }
     public void initView() {
-        v.showView();
-        
+        v.getFrame().setVisible(true);
     }
-    public void updateView() {
+    private void restart() {
+        v.getFrame().remove(v.getP3());
+        
+        showFirstPage();
+                
+        System.out.println("You");
+    }
+    
+  
+    private void updateView() {
         String s = v.p1GetInputField().getText();
         if(!kh.isHasError() && !s.equals("") && !s.equals("Input Here")) {
             v.updateView();
@@ -57,6 +65,10 @@ public class Controller {
         }        
         
     }
+    private void showFirstPage() {
+        v.firstPage();
+        v.getRB1().addActionListener(e -> updateView());
+    }
     public void showTable() {
         v.showTable(t);
         
@@ -68,7 +80,7 @@ public class Controller {
     }
     public static void main(String[] args) {
         Controller c = new Controller(new View(), new Model());
-        c.initView();
+        c.initView();      
         c.initController();
         
     }
