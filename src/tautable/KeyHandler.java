@@ -1,0 +1,77 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package tautable;
+
+
+import corefunctions.ASTPrinter;
+import corefunctions.Expression;
+import corefunctions.Lexer;
+import corefunctions.Parser;
+import corefunctions.Token;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+import java.util.List;
+import javax.swing.JLabel;
+
+import javax.swing.JTextField;
+
+/**
+ *
+ * @author Franklin Xam
+ */
+public class KeyHandler implements KeyListener {
+    private JTextField jtx;
+    private JLabel lab;
+    private boolean hasError;
+    
+    public KeyHandler(JTextField txt, JLabel area) {
+        jtx = txt;
+        lab = area;
+    }
+    @Override
+    public void keyTyped(KeyEvent e){
+       
+       
+        
+    }
+    @Override
+    public void keyPressed(KeyEvent e) {
+        
+    }
+    @Override
+    public void keyReleased(KeyEvent e) {
+        String s = jtx.getText();
+        lab.setText(s);
+        hasError = false;
+        
+       if(!s.equals("")){
+            Lexer lx = new Lexer(s);
+            lx.scan();
+            List<Token> tokens = lx.getTokens();
+            boolean fail = lx.getError();
+            if(fail) {
+                lab.setForeground(new Color(56,56,56));
+                lab.setText("Wrong character used");
+                hasError = true;
+            } else {
+                Parser p = new Parser(tokens); 
+                Expression expr = p.parse();
+                System.out.println(p.getErrorStatus());
+                if(p.getErrorStatus()) {
+                    lab.setForeground(new Color(56, 56, 56));
+                    lab.setText("Not a propositional statement");
+                    hasError = true;
+                } else {
+                    String strProp = new ASTPrinter().print(expr);
+                    lab.setForeground(new Color(220, 220, 220));
+                    lab.setText(strProp);
+                }
+            } 
+       }
+    }
+}
