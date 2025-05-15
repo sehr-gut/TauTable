@@ -38,17 +38,14 @@ public class Main {
         l.scan();
         Parser parser = new Parser(l.tokens);
         Expression head = parser.parse();
-        interpreter.interpret(head);
-        
+        System.out.println(interpreter.interpret(head));
+        System.out.println(interpreter.results.toString());
         TruthTable truthTable = new TruthTable();
         ASTPrinter ap = new ASTPrinter();
         ap.print(head);
         List<String> props = ap.getPropositions();
         List<String> results = interpreter.results;
-
-        truthTable.setn(interpreter.n);
-        truthTable.generateTable(props, results);
-        System.out.println("Truth Table: \n" + truthTable);
+        
     }
 
     

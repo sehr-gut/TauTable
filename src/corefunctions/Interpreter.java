@@ -43,8 +43,9 @@ public class Interpreter implements Expression.Visitor<String> {
             }
             return sb.toString();
         }
-        
-        return getTruthValue(n / (2 << (props.indexOf(expr.literal))));
+        String val = getTruthValue(n / (2 << (props.indexOf(expr.literal))));
+        results.add(val);
+        return val;
         // System.out.println("proposition ["+ expr.literal +"]\nval: " + Integer.toBinaryString(val));
     }
     @Override
@@ -80,8 +81,9 @@ public class Interpreter implements Expression.Visitor<String> {
     private String calculateAnd(String p, String q) {
         StringBuilder sb = new StringBuilder();
         for(int i = 0; i < p.length(); i++) {
-            int a = p.charAt(0) - '0';
-            int b = q.charAt(0) - '0';
+            int a = p.charAt(i) - '0';
+            int b = q.charAt(i) - '0';
+            System.out.println(a + " " + b);
             sb.append(Integer.toBinaryString(a & b));
         }
         return sb.toString();
@@ -97,8 +99,8 @@ public class Interpreter implements Expression.Visitor<String> {
     private String calculateOr(String p, String q) {
         StringBuilder sb = new StringBuilder();
         for(int i = 0; i < p.length(); i++) {
-            int a = p.charAt(0) - '0';
-            int b = q.charAt(0) - '0';
+            int a = p.charAt(i) - '0' & 1;
+            int b = q.charAt(i) - '0' & 1;
             sb.append(Integer.toBinaryString(a | b));
         }
         return sb.toString();
@@ -106,9 +108,9 @@ public class Interpreter implements Expression.Visitor<String> {
     private String calculateIf(String p, String q) {
         StringBuilder sb = new StringBuilder();
         for(int i = 0; i < p.length(); i++) {
-            int a = p.charAt(0) - '0';
-            int b = q.charAt(0) - '0';
-            sb.append(~a | b);
+            int a = p.charAt(i) - '0' & 1;
+            int b = q.charAt(i) - '0' & 1;
+            sb.append(Integer.toBinaryString((~a & 1) | b));
         }
         return sb.toString();
     }
@@ -119,7 +121,7 @@ public class Interpreter implements Expression.Visitor<String> {
         for(int i = 0; i < p.length(); i++) {
             int a = suf.charAt(i) - '0';
             int b = nec.charAt(i) - '0';
-            sb.append(a & b);
+            sb.append(Integer.toBinaryString(a & b));
         }
         return sb.toString();
     }
