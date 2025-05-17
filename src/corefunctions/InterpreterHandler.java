@@ -5,8 +5,7 @@
 package corefunctions;
 
 
-import static corefunctions.Main.interpreter;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 /**
  *
@@ -46,8 +45,22 @@ public class InterpreterHandler {
         
         
         ap.print(head);
+        List<String> props = ap.getPropositions();
+        List<String> result =  in.results;
+        List<String> finalProps = new ArrayList<>();
+        List<String> finalResults = new ArrayList<>();
+        
+        
+        for(int i = 0; i < props.size(); i++) {
+            String prop = props.get(i).trim();
+            String res = result.get(i);
+            if(!finalProps.contains(prop)) {
+               finalProps.add(prop);
+               finalResults.add(res);
+            }
+        }        
         truthTable = new TruthTable(in.n);
-        truthTable.generateTable(ap.getPropositions(), in.results);
+        truthTable.generateTable(finalProps, finalResults);
         
         return truthTable;
     }

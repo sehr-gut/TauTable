@@ -30,10 +30,16 @@ public class Panel2 extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(15, 15, 15));
+        setForeground(new java.awt.Color(15, 15, 15));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
+
         jLabel1.setFont(new java.awt.Font("Ubuntu Mono", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("generating truth table...");
 
         jLabel2.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(52, 157, 52));
         jLabel2.setText("TauTable");
 
         jLabel3.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 10)); // NOI18N

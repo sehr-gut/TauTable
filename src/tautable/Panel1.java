@@ -59,7 +59,7 @@ public class Panel1 extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
         jLabel2.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(152, 197, 52));
+        jLabel2.setForeground(new java.awt.Color(52, 157, 52));
         jLabel2.setText("TauTable");
         jLabel2.setToolTipText("");
 
@@ -93,6 +93,7 @@ public class Panel1 extends javax.swing.JPanel {
         jLabel1.setText("Your Statement");
 
         roundedButton1.setBorder(null);
+        roundedButton1.setForeground(new java.awt.Color(15, 15, 15));
         roundedButton1.setText("Generate");
         roundedButton1.setColor(new java.awt.Color(155, 197, 92));
         roundedButton1.setColorBorder(java.awt.Color.magenta);
@@ -158,7 +159,7 @@ public class Panel1 extends javax.swing.JPanel {
     public javax.swing.JLabel getLabel() {
         return jLabel4;
     }
-    private void initFocus() {
+    public void initFocus() {
         jTextField1.addFocusListener(new FocusHandler("Input Here", jTextField1, 
                 new Font("Ubuntu Mono", 1, 14), new Color(56,56,56), 
                 new Color(220,220,220)));

@@ -83,7 +83,6 @@ public class Interpreter implements Expression.Visitor<String> {
         for(int i = 0; i < p.length(); i++) {
             int a = p.charAt(i) - '0';
             int b = q.charAt(i) - '0';
-            System.out.println(a + " " + b);
             sb.append(Integer.toBinaryString(a & b));
         }
         return sb.toString();
@@ -110,6 +109,7 @@ public class Interpreter implements Expression.Visitor<String> {
         for(int i = 0; i < p.length(); i++) {
             int a = p.charAt(i) - '0' & 1;
             int b = q.charAt(i) - '0' & 1;
+            System.out.println(a + " " + b);
             sb.append(Integer.toBinaryString((~a & 1) | b));
         }
         return sb.toString();
@@ -146,6 +146,7 @@ public class Interpreter implements Expression.Visitor<String> {
     private void initialize() { 
         props = Parser.propositions;
         Collections.sort(props);
+        
         while(props.contains('T') || props.contains('F')) {
             props.remove('T');
             props.remove('F');
