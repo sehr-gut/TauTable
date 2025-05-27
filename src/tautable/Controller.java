@@ -3,10 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package tautable;
-import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingWorker;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,46 +20,41 @@ public class Controller {
     Model m;
     View v;
     KeyHandler kh;
-    
-    
-    
     public Controller(View view, Model model) {
         m = model;
-        v = view;
-        initKey(v.p1GetInputField(), v.p1GetLabel());
-        
-        
+        v = view;    
     }
     private void interpret(String s) {
-         m.interpret(s);
+         m.interpret(s); // core functions
     }
-    public void initController() {
-        
-        v.getGenerateButton().addActionListener(e -> updateView());
-        v.getRestartButton().addActionListener(e -> restart());
-        m.readFromCsv();
-    }
+
     public void initView() {
         v.getFrame().setVisible(true);
+ 
     }
     
-    private void initKey(JTextField jTxtf, JLabel lab) {
-        kh = new KeyHandler(jTxtf, lab);
+    private void initKey() {
+        JTextField jTxtf= v.getP1().getInputField();
+        JLabel  lab = v.getP1().getLabel();
+        kh = new KeyHandler(jTxtf, lab); // this handles the key input 
+                                         // and the displays
         jTxtf.addKeyListener(kh);
     }
-    private void updateView() {
+    
+    private void loadingView() {
         String s = v.p1GetInputField().getText();
-        if(!kh.isHasError() && !s.equals("") && !s.equals("Input Here")) {
-           v.updateView();
-           new SwingWorker<Void, Void>() {
+        if(!kh.isHasError() && !s.equals("") && !s.equals("Input Here")) { 
+            // this is to check if the input field is correct
+           v.updateView(); // changes the loading screen
+           new SwingWorker<Void, Void>() { // using swing worker to add a 
+                                            //simple loading screen
                 @Override
                 protected Void doInBackground() throws Exception {
-                    // Simulate a long-running task
+                    // Loading logic
                     interpret(s);
-
-                    System.out.println("Done");
+//                    System.out.println("Done");
                     Thread.sleep(1000);
-                    return null;
+                    return null; 
                 }
 
                 @Override
@@ -64,32 +63,68 @@ public class Controller {
                     showTable();
                 }
             }.execute();
-        }        
-        
+        }          
     }
-    private void showFirstPage() {
+    private void firstPage() { // restarting the 
         v.firstPage();
-        v.getGenerateButton().addActionListener(e -> updateView());
-        initKey(v.p1GetInputField(), v.p1GetLabel());
-        
-        
+        v.getGenButton().addActionListener(e -> loadingView());
+        initKey();
     }
     public void showTable() {
-        v.getFrame().remove(v.getP2());
-        v.getP3().setT(m.tt);
-        v.getP3().initTable();
         v.showTable(m.tt); 
+        v.getP3().getRestartButton().addActionListener(e -> restart());
+        getSelectedPreviousInput(v.getP3().getjTable3());
+        populatePrevious();
         m.saveToCsv();
     }
+    public void populatePrevious() {
+       m.readFromCsv();
+       DefaultTableModel dtm = new DefaultTableModel() {
+           @Override
+           public boolean isCellEditable(int row, int column) {
+               return false;
+           }
+       };
+       dtm.setColumnIdentifiers(new Object[]{"previous Inputs"});
+       for(String props: m.previousInputs) {
+           dtm.insertRow(0, new Object[] {props});
+       }
+       
+       v.getP3().getPrevList().setModel(dtm);
+    }
+    public void getSelectedPreviousInput(JTable t) {
+        t.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e){
+               int row = m.prevTables.size() - 1 - t.getSelectedRow();
+               if(row >= 0) {
+                   v.showTable(m.prevTables.get(row));
+                   System.out.println("row: " + m.prevTables.get(row));
+                   showTable();
+                   v.getFrame().revalidate();
+                   v.getFrame().repaint();
+               }
+            }
+            @Override 
+            public void mouseReleased(MouseEvent e) {
+                
+            }
+        });
+    }
     private void restart() {
-        v.getFrame().remove(v.getP3());
-        showFirstPage();   
+        JFrame f = v.getFrame();
+        f.remove(v.getP3());
+        firstPage();   
+        f.repaint();
+        f.revalidate();
     }
 
     public static void main(String[] args) {
         Controller c = new Controller(new View(), new Model());
-        c.initView();      
-        c.initController();
+        c.firstPage();
+        c.initView();
+        c.initKey();
+        
         
     }
             

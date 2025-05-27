@@ -9,6 +9,10 @@ public class TruthTable extends DefaultTableModel {
     int n;
     List<String> k;
     List<String> v;
+    public TruthTable(List<String> s, List<String> v) {
+        this.n = s.size();
+        generateTable(s, v);
+    }
     public TruthTable(int n) {
         this.n = n;
     }
@@ -38,6 +42,11 @@ public class TruthTable extends DefaultTableModel {
         sb.append(k.get(k.size() - 1));
         sb.append(",");
         for (int i = 0; i < v.size(); i++) {
+            sb.append(k.get(i));
+            sb.append("|");
+        }
+        sb.append(",");
+        for (int i = 0; i < v.size(); i++) {
             sb.append(v.get(i));
             sb.append("|");
         }
@@ -49,6 +58,7 @@ public class TruthTable extends DefaultTableModel {
         for(int i = 0;i < v.size(); i++) {
             res += (k.get(i) + " | " + v.get(i));
         }
+
         return res;
     }
 

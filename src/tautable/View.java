@@ -10,6 +10,7 @@ import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
@@ -24,58 +25,46 @@ public class View {
     private JFrame f; 
     
     public View() {
-        
         try {
-            UIManager.setLookAndFeel(new FlatDarkLaf());
             FlatDarkLaf.registerCustomDefaultsSource("style");
-            
+            UIManager.setLookAndFeel(new FlatDarkLaf());
             f = new JFrame();
             f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            p1 =new Panel1();
-            p2 = new Panel2();
-            p3 = new Panel3();
-            showView();
+            f.setSize(410, 320);
         } catch (Exception e) {
             
         }
         
-    }
-    public void showView() {
-        
-        f.setSize(410, 320);
-        f.add(p1); 
-        f.setVisible(true);
-    }        
-       
+    }      
     public void updateView() {
         JTextField jtf = p1.getInputField();
         String in = jtf.getText().toLowerCase();
         if(!in.equals("") && !in.equals("input here")) {
             showLoading();
-        } else {
-            jtf.setBackground(Color.red);
         }
-        
     }
     public void firstPage() {
         p1 = new Panel1();
         f.add(p1);
-        
-        
-        f.validate();
-        f.repaint();
-        
     }
     public void showLoading() {
-        f.remove(p1);
+        p2 = new Panel2();
+        removePanels();
         f.add(p2);
         f.validate();
         f.repaint();
     }
     public void showTable(TruthTable t) {
+        removePanels();
+        p3 = new Panel3();
         f.add(p3);
+        p3.getjTable1().setModel(t);
         f.validate();
         f.repaint();
+    }
+    
+    public JScrollPane getScrollPane() {
+        return p3.getScrollPane();
     }
     public Panel3 getP3() {
         return p3;
@@ -89,8 +78,8 @@ public class View {
     public JFrame getFrame() {
         return f;
     }
-    public JButton getGenerateButton() {
-        return p1.getRoundedButton1();
+    public JButton getGenButton() {
+        return p1.getButton();
     }
     public JTextField p1GetInputField() {
         return p1.getInputField();
@@ -98,7 +87,11 @@ public class View {
     public JLabel p1GetLabel() {
         return p1.getLabel();
     }
-
+    public void removePanels() {
+        if(p1 != null) f.remove(p1);
+        if(p2 != null) f.remove(p2);
+        if(p3 != null) f.remove(p3);
+    }
     public JButton getRestartButton() {
         return p3.getRestartButton();
     }

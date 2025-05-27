@@ -59,7 +59,8 @@ public class Lexer {
                 break;
             case '~': addToken(TokenType.NEG); break;
             case 'x': addToken(TokenType.XOR); break;
-            case ' ': break;
+            
+            case ' ': 
             case '\n':
             case '\r':
             case '\t':
@@ -90,10 +91,10 @@ public class Lexer {
             a >= 'A' && a <= 'Z';
     }
     private void prop() {
-        while(alpha(peek()) && peek() != 'v') {
+        while((alpha(peek()) || peek() == ' ')&& peek() != 'v' ) {
             advance();
         }
-        String a = source.substring(start, count);
+        String a = source.substring(start, count).replaceAll(" ", "");
         if(a.equals("T")) addToken(TokenType.TAUT);
         else if(a.equals("F")) addToken(TokenType.CONT);
         else addToken(TokenType.PROP, a);

@@ -5,8 +5,8 @@
 package tautable;
 
 import corefunctions.TruthTable;
-import java.awt.Font;
 import javax.swing.JButton;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 /**
@@ -21,6 +21,8 @@ public class Panel3 extends javax.swing.JPanel {
     TruthTable t;
     public Panel3() {
         initComponents();
+        jTable1.setFillsViewportHeight(true);
+        jTable3.setFillsViewportHeight(true);
     }
 
     /**
@@ -32,13 +34,35 @@ public class Panel3 extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
 
+        jTable3.setFont(new java.awt.Font("Ubuntu Mono", 1, 18)); // NOI18N
+        jTable3.setForeground(new java.awt.Color(102, 102, 102));
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Previous Inputs"
+            }
+        ));
+        jTable3.setFillsViewportHeight(true);
+        jTable3.setRowHeight(30);
+        jScrollPane2.setViewportView(jTable3);
+
         jScrollPane3.setBackground(new java.awt.Color(0, 0, 0));
         jScrollPane3.setForeground(new java.awt.Color(0, 0, 0));
+        jScrollPane3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jScrollPane3.setFont(new java.awt.Font("Ubuntu Mono", 1, 14)); // NOI18N
 
+        jTable1.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 18)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -50,7 +74,7 @@ public class Panel3 extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jTable1.setEnabled(false);
         jScrollPane3.setViewportView(jTable1);
 
         jButton2.setText("input again");
@@ -66,20 +90,23 @@ public class Panel3 extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE))
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -94,26 +121,28 @@ public class Panel3 extends javax.swing.JPanel {
     public JTable getjTable1() {
         return jTable1;
     }
-
+    public JTable getjTable3() {
+        return jTable3;
+    }
     public void setjTable1(JTable jTable1) {
         this.jTable1 = jTable1;
-    }
-
-    public TruthTable getT() {
-        return t;
-    }
-
-    public void setT(TruthTable t) {
-        this.t = t;
     }
     public void initTable() {
         jTable1.setModel(t);
         
     }
+    public JScrollPane getScrollPane(){
+        return jScrollPane3;
+    }
+    public JTable getPrevList() {
+        return jTable3;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable3;
     // End of variables declaration//GEN-END:variables
 }

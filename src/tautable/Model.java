@@ -7,11 +7,11 @@ import corefunctions.InterpreterHandler;
 import corefunctions.TruthTable;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 /**
  *
@@ -20,27 +20,35 @@ import java.util.List;
 public class Model {
     final static InterpreterHandler ih = new InterpreterHandler();
     static List<String> previousInputs = new ArrayList<>(); 
+    static List<TruthTable> prevTables = new ArrayList<>();
+
     static TruthTable tt;
     private String input;
     
     public void interpret(String propositions){
         input = propositions;
         tt = ih.interpret(propositions);
-       
     }
-    public void readFromCsv(){
+    public TruthTable readFromCsv(){
         try {
-            
+            previousInputs.clear();
+            prevTables.clear();
             BufferedReader b = new BufferedReader(new FileReader(".\\src\\Saved Tables\\tables.csv"));
             String s  = "";
             while((s = b.readLine()) != null) {
                 String [] sl = s.split(",");
+                
                 previousInputs.add(sl[0]);
+                String[] ps = sl[1].split("\\|");
+                String[] vs = sl[2].split("\\|");
+                List<String> props =  Arrays.asList(ps);
+                List<String> value =  Arrays.asList(vs);
+                prevTables.add(new TruthTable(props, value));
             }
         } catch (Exception e) {
-            
+            e.printStackTrace();
         }
-        
+        return null;
     }
     public void saveToCsv() {
         try {
