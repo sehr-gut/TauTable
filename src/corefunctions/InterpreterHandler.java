@@ -38,7 +38,9 @@ public class InterpreterHandler {
         setLx(new Lexer(p));
         setAp(new ASTPrinter());
         lx.scan();
+
         setParser(new Parser(lx.getTokens()));
+        
         Expression head = parser.parse();
         in.interpret(head);
         
