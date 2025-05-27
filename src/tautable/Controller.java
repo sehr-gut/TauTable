@@ -61,6 +61,7 @@ public class Controller {
                 protected void done() {
                     // Close the loading screen and show the result
                     showTable();
+                    m.saveToCsv();
                 }
             }.execute();
         }          
@@ -75,7 +76,6 @@ public class Controller {
         v.getP3().getRestartButton().addActionListener(e -> restart());
         getSelectedPreviousInput(v.getP3().getjTable3());
         populatePrevious();
-        m.saveToCsv();
     }
     public void populatePrevious() {
        m.readFromCsv();
@@ -97,9 +97,9 @@ public class Controller {
             @Override
             public void mousePressed(MouseEvent e){
                int row = m.prevTables.size() - 1 - t.getSelectedRow();
-               if(row >= 0) {
-                   v.showTable(m.prevTables.get(row));
+               if(row >= 0 && m.prevTables.size() > 0) {
                    System.out.println("row: " + m.prevTables.get(row));
+                   m.tt = m.prevTables.get(row);
                    showTable();
                    v.getFrame().revalidate();
                    v.getFrame().repaint();
