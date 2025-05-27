@@ -120,10 +120,12 @@ public class Panel1 extends javax.swing.JPanel {
     public javax.swing.JLabel getLabel() {
         return jLabel4;
     }
-    public void initFocus() {
-        jTextField1.addFocusListener(new FocusHandler("Input Here", jTextField1, 
-                new Font("Ubuntu Mono", 1, 14), new Color(56,56,56), 
-                new Color(220,220,220)));
+    public void initFocus() { // setting new Focus for the nput fields
+        jTextField1.addFocusListener(new FocusHandler().setMessage("Input Here")
+                                    .setTxtf(jTextField1)
+                                    .setFont(new Font("Ubuntu Mono", 1, 14))
+                                    .setBackgroundFocus(new Color(56,56,56))
+                                    .setForegroundFocus(new Color(220,220,220)));
     }
 
     

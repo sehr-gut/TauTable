@@ -1,0 +1,8 @@
+<expr>  ->  <iff>;
+<iff>   ->  <if> "<=>" <if> | <if>;
+<if>    ->  <or>  "->" <or> | <or>;
+<or>    ->  <and> "v" <and> | <and>;
+<and>   ->  <neg> "^" <neg> | <neg>;
+<neg>   ->  "~"<prop> | <prop>;
+<prop>  ->  <group> | LITERAL;
+<group> ->  "("<expr>")";

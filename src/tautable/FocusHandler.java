@@ -14,11 +14,8 @@ import javax.swing.JTextField;
  *
  * @author Franklin Xam
  */
-public class FocusHandler implements FocusListener {
-    
-    
-    
-    
+public class FocusHandler implements FocusListener { 
+    // handles the input field behaviors
     String message;
     JTextField txtf;
     Font font;
@@ -26,46 +23,44 @@ public class FocusHandler implements FocusListener {
 
    
    
-
-    public FocusHandler(String s, JTextField t, Font f,
-            Color c, Color textFoc) {
-        message = s;
-        txtf = t;
-        font = f;
-        setBackgroundFocus(c);
-        setForegroundFocus(textFoc);
-        setColors(); 
+    // uses BUILDER Design pattern
+    public FocusHandler() {
+        
     }
      public Color getForegroundFocus() {
         return foregroundFocus;
     }
 
-    public void setForegroundFocus(Color txtFoc) {
+    public FocusHandler setForegroundFocus(Color txtFoc) {
         this.foregroundFocus = txtFoc;
+        return this;
     }
 
     public Color getBackground() {
         return background;
     }
 
-    public void setBackground(Color b) {
+    public FocusHandler setBackground(Color b) {
         this.background = b;
+        return this;
     }
 
     public Color getForeground() {
         return foreground;
     }
 
-    public void setForeground(Color fr) {
+    public FocusHandler setForeground(Color fr) {
         this.foreground = fr;
+        return this;
     }
 
     public Color getBackgroundFocus() {
         return backgroundFocus;
     }
 
-    public void setBackgroundFocus(Color foc) {
+    public FocusHandler setBackgroundFocus(Color foc) {
         this.backgroundFocus = foc;
+        return this;
     }
     
     public String getMessage() {
@@ -75,21 +70,24 @@ public class FocusHandler implements FocusListener {
         return font;
     }
 
-    public void setFont(Font font) {
+    public FocusHandler setFont(Font font) {
         this.font = font;
         txtf.setFont(font);
+        return this;
     }
 
-    public void setMessage(String message) {
+    public FocusHandler setMessage(String message) {
         this.message = message;
+        return this;
     }
 
     public JTextField getTxtf() {
         return txtf;
     }
 
-    public void setTxtf(JTextField txtf) {
+    public FocusHandler setTxtf(JTextField txtf) {
         this.txtf = txtf;
+        return this;
     }
     
     public void setColors() {
@@ -99,7 +97,9 @@ public class FocusHandler implements FocusListener {
     
 
     @Override
-    public void focusGained(FocusEvent e) {
+    public void focusGained(FocusEvent e) { 
+        // this removes the placeholder text of the input field
+                                            
         String txt = txtf.getText();
         txtf.setBackground(backgroundFocus);
 
@@ -111,6 +111,9 @@ public class FocusHandler implements FocusListener {
     }
     @Override
     public void focusLost(FocusEvent e) {
+        // this handles the behavior of the input field
+        // such as puting back the placeholder if the 
+        // field is empty
         String t = txtf.getText();
         txtf.setBackground(background);
         

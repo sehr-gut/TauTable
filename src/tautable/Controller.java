@@ -16,7 +16,10 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Franklin Xam
  */
+
+// this uses MVC pattern in handling classes and UI
 public class Controller {
+    // The c of the design pattern
     Model m;
     View v;
     KeyHandler kh;
@@ -30,7 +33,7 @@ public class Controller {
 
     public void initView() {
         v.getFrame().setVisible(true);
- 
+
     }
     
     private void initKey() {
@@ -71,28 +74,32 @@ public class Controller {
         v.getGenButton().addActionListener(e -> loadingView());
         initKey();
     }
-    public void showTable() {
+    public void showTable() { // showing table 
         v.showTable(m.tt); 
         v.getP3().getRestartButton().addActionListener(e -> restart());
-        getSelectedPreviousInput(v.getP3().getjTable3());
-        populatePrevious();
+            // for the actionlistener
+        getSelectedPreviousInput(v.getP3().getjTable3()); // for 
+            // mouselistener of the previous tables
+        populatePrevious(); // gathers the previous tables generated
     }
     public void populatePrevious() {
-       m.readFromCsv();
+       m.readFromCsv(); // reading from csv
        DefaultTableModel dtm = new DefaultTableModel() {
            @Override
            public boolean isCellEditable(int row, int column) {
                return false;
            }
-       };
-       dtm.setColumnIdentifiers(new Object[]{"previous Inputs"});
+       }; // creating an uneditable table for the previous tables
+       dtm.setColumnIdentifiers(new Object[]{"previous Inputs"}); 
+        // table generation
        for(String props: m.previousInputs) {
            dtm.insertRow(0, new Object[] {props});
        }
-       
+       // setting panel 3 jtable to current model
        v.getP3().getPrevList().setModel(dtm);
     }
     public void getSelectedPreviousInput(JTable t) {
+        // for the mouse listener handler
         t.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e){
@@ -105,13 +112,9 @@ public class Controller {
                    v.getFrame().repaint();
                }
             }
-            @Override 
-            public void mouseReleased(MouseEvent e) {
-                
-            }
         });
     }
-    private void restart() {
+    private void restart() { // for inputing new propositions
         JFrame f = v.getFrame();
         f.remove(v.getP3());
         firstPage();   
@@ -119,7 +122,7 @@ public class Controller {
         f.revalidate();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) { // main method
         Controller c = new Controller(new View(), new Model());
         c.firstPage();
         c.initView();

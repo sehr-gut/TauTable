@@ -12,6 +12,7 @@ import java.util.List;
  * @author Franklin Xam
  */
 public class InterpreterHandler {
+    // for the Interface between the model and the interpreter
     final Interpreter in = new Interpreter();
     TruthTable truthTable;
     ASTPrinter ap;
@@ -20,7 +21,7 @@ public class InterpreterHandler {
     Lexer lx;
     Parser parser;
     
-    public void setTruthTable(TruthTable truthTable) {
+    public void setTruthTable(TruthTable truthTable) { // getters and setters
         this.truthTable = truthTable;
     }
 
@@ -34,26 +35,32 @@ public class InterpreterHandler {
     public void setParser(Parser parser) {
         this.parser = parser;
     }
+    // called by the model
     public TruthTable interpret(String p) {
-        setLx(new Lexer(p));
-        setAp(new ASTPrinter());
-        lx.scan();
+        setLx(new Lexer(p)); // sets a new Lexer
+        setAp(new ASTPrinter()); // sets new ASTprinter
+        lx.scan(); // starts the token scanning
 
         setParser(new Parser(lx.getTokens()));
-        
+        //  setting up the parser (above) parsing the tokens (below)
         Expression head = parser.parse();
-        in.interpret(head);
+        in.interpret(head); // calling the interpreter method
         
+        // this is where the truth table creation starts
         
-        
-        ap.print(head);
-        List<String> props = ap.getPropositions();
+        ap.print(head); // this outputs the propositions used
+        List<String> props = ap.getPropositions(); 
         List<String> result =  in.results;
         List<String> finalProps = new ArrayList<>();
         List<String> finalResults = new ArrayList<>();
+        // why does this work?
+        // the interpreter and the ast printer uses the same AST for generating
+        // their outputs. ensuring the same length and positions for the 
+        // output proposition and results
         
         
         for(int i = 0; i < props.size(); i++) {
+            // setting up a truth table
             String prop = props.get(i).trim();
             String res = result.get(i);
             if(!finalProps.contains(prop)) {
