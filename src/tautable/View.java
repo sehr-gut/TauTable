@@ -4,27 +4,41 @@
  */
 package tautable;
 
+import com.formdev.flatlaf.FlatDarkLaf;
 import corefunctions.TruthTable;
 import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 
 /**
  *
  * @author Franklin Xam
  */
 public class View {
-    private Panel1 p1 = new Panel1();    
-    private Panel2 p2 = new Panel2();
-    private Panel3 p3 = new Panel3();
+    private Panel1 p1;    
+    private Panel2 p2;
+    private Panel3 p3;
     private JFrame f; 
     
     public View() {
-        f = new JFrame();
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        showView();
+        
+        try {
+            UIManager.setLookAndFeel(new FlatDarkLaf());
+            FlatDarkLaf.registerCustomDefaultsSource("style");
+            
+            f = new JFrame();
+            f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            p1 =new Panel1();
+            p2 = new Panel2();
+            p3 = new Panel3();
+            showView();
+        } catch (Exception e) {
+            
+        }
+        
     }
     public void showView() {
         
@@ -75,7 +89,7 @@ public class View {
     public JFrame getFrame() {
         return f;
     }
-    public RoundedButton getGenerateButton() {
+    public JButton getGenerateButton() {
         return p1.getRoundedButton1();
     }
     public JTextField p1GetInputField() {

@@ -46,8 +46,6 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         hasError = false;
-        addHandler();
-        
         if(e.getKeyCode() == KeyEvent.VK_UP) {
             if(n >= Model.previousInputs.size()) {
                 jtx.setText("");
@@ -57,10 +55,21 @@ public class KeyHandler implements KeyListener {
                 n++;     
             }   
         }
+        if(e.getKeyCode() == KeyEvent.VK_DOWN) {
+            if(n < 0) {
+                jtx.setText("");
+                n = Model.previousInputs.size() - 1;
+            } else {
+                jtx.setText(Model.previousInputs.get(n));  
+                n--;     
+            }   
+        }
+
     }
     @Override
     public void keyReleased(KeyEvent e) {
         addHandler();
+        System.out.println(hasError);
         
     }
     public void addHandler() {

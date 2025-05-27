@@ -90,7 +90,7 @@ public class Interpreter implements Expression.Visitor<String> {
     private String calculateNot(String p) {
         StringBuilder res = new StringBuilder();
         for(int i = 0; i < p.length(); i++) {
-            int a = p.charAt(i) - '0' & 1;
+            int a = ~(p.charAt(i) - '0') & 1;
             res.append(Integer.toBinaryString(a));
         }
         return res.toString();

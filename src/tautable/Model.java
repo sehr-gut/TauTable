@@ -26,6 +26,7 @@ public class Model {
     public void interpret(String propositions){
         input = propositions;
         tt = ih.interpret(propositions);
+       
     }
     public void readFromCsv(){
         try {
@@ -43,7 +44,7 @@ public class Model {
     }
     public void saveToCsv() {
         try {
-            FileWriter fw = new FileWriter(".\\src\\Saved Tables\\tables.csv");
+            FileWriter fw = new FileWriter(".\\src\\Saved Tables\\tables.csv",true);
             File f = new File(".\\src\\Saved Tables\\tables.csv");
             if(!f.exists()) {
                 f.createNewFile();
