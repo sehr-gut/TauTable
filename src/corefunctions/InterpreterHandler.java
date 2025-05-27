@@ -5,15 +5,14 @@
 package corefunctions;
 
 
-import static corefunctions.Main.interpreter;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 /**
  *
  * @author Franklin Xam
  */
 public class InterpreterHandler {
-    static final Interpreter i = new Interpreter();
+    final Interpreter in = new Interpreter();
     TruthTable truthTable;
     ASTPrinter ap;
 
@@ -39,17 +38,32 @@ public class InterpreterHandler {
         setLx(new Lexer(p));
         setAp(new ASTPrinter());
         lx.scan();
-        for (Token n : lx.getTokens()) {
-            System.out.println(n);
-        }
-        System.out.println("Balls");
+
         setParser(new Parser(lx.getTokens()));
+        
         Expression head = parser.parse();
-        i.interpret(head);
+        in.interpret(head);
+        
+        
+        
         ap.print(head);
-        setTruthTable(new TruthTable());
-        truthTable.setn(interpreter.n);
-        truthTable.generateTable(ap.getPropositions(), interpreter.results);
+        List<String> props = ap.getPropositions();
+        List<String> result =  in.results;
+        List<String> finalProps = new ArrayList<>();
+        List<String> finalResults = new ArrayList<>();
+        
+        
+        for(int i = 0; i < props.size(); i++) {
+            String prop = props.get(i).trim();
+            String res = result.get(i);
+            if(!finalProps.contains(prop)) {
+               finalProps.add(prop);
+               finalResults.add(res);
+            }
+        }        
+        truthTable = new TruthTable(in.n);
+        truthTable.generateTable(finalProps, finalResults);
+        
         return truthTable;
     }
 
