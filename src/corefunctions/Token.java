@@ -1,5 +1,8 @@
 package corefunctions;
 
+// this class is for the token
+// more reminicent of structs from C or C++
+// than OOP class
 public class Token {
     public Token(String le, TokenType t, int pos) {
         lexeme = le;

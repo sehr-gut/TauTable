@@ -19,6 +19,7 @@ import javax.swing.UIManager;
  * @author Franklin Xam
  */
 public class View {
+    // The V of the design pattern
     private Panel1 p1;    
     private Panel2 p2;
     private Panel3 p3;
@@ -27,6 +28,8 @@ public class View {
     public View() {
         try {
             FlatDarkLaf.registerCustomDefaultsSource("style");
+            // using the style package for the stylinng
+                // adding custom styling using FlatDarkLaf
             UIManager.setLookAndFeel(new FlatDarkLaf());
             f = new JFrame();
             f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,25 +39,25 @@ public class View {
         }
         
     }      
-    public void updateView() {
+    public void updateView() { // for handling the changes in the panel1
         JTextField jtf = p1.getInputField();
         String in = jtf.getText().toLowerCase();
         if(!in.equals("") && !in.equals("input here")) {
             showLoading();
         }
     }
-    public void firstPage() {
+    public void firstPage() { // this is for reloading the first page
         p1 = new Panel1();
         f.add(p1);
     }
-    public void showLoading() {
+    public void showLoading() { // changing the view to the loading screen
         p2 = new Panel2();
-        removePanels();
+        removePanels(); // to avoid backlog of panels
         f.add(p2);
         f.validate();
         f.repaint();
     }
-    public void showTable(TruthTable t) {
+    public void showTable(TruthTable t) { // showing of the table in panel3
         removePanels();
         p3 = new Panel3();
         f.add(p3);
@@ -72,19 +75,19 @@ public class View {
     public Panel2 getP2() {
         return p2;
     }
-    public Panel1 getP1() {
+    public Panel1 getP1() { 
         return p1;
     }
     public JFrame getFrame() {
         return f;
     }
-    public JButton getGenButton() {
+    public JButton getGenButton() { //pane1
         return p1.getButton();
     }
-    public JTextField p1GetInputField() {
+    public JTextField p1GetInputField() { // panel 
         return p1.getInputField();
     }
-    public JLabel p1GetLabel() {
+    public JLabel p1GetLabel() { //panel1
         return p1.getLabel();
     }
     public void removePanels() {
@@ -92,7 +95,7 @@ public class View {
         if(p2 != null) f.remove(p2);
         if(p3 != null) f.remove(p3);
     }
-    public JButton getRestartButton() {
+    public JButton getRestartButton() { // panel1
         return p3.getRestartButton();
     }
 }

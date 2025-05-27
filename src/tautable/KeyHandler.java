@@ -24,12 +24,14 @@ import javax.swing.JTextField;
  * @author Franklin Xam
  */
 public class KeyHandler implements KeyListener {
+    // Handles the logic and communications between
+    // the display and the input
     private JTextField jtx;
     private JLabel lab;
     private boolean hasError;
     private int n = 0;
             
-    public boolean isHasError() {
+    public boolean isHasError() { // returns any error
         return hasError;
     }
     
@@ -39,61 +41,46 @@ public class KeyHandler implements KeyListener {
     }
     @Override
     public void keyTyped(KeyEvent e){
-       
-       
-        
     }
     @Override
     public void keyPressed(KeyEvent e) {
         hasError = false;
-        if(e.getKeyCode() == KeyEvent.VK_UP) {
-            if(n >= Model.previousInputs.size()) {
-                jtx.setText("");
-                n = 0;
-            } else {
-                jtx.setText(Model.previousInputs.get(n));  
-                n++;     
-            }   
-        }
-        if(e.getKeyCode() == KeyEvent.VK_DOWN) {
-            if(n < 0) {
-                jtx.setText("");
-                n = Model.previousInputs.size() - 1;
-            } else {
-                jtx.setText(Model.previousInputs.get(n));  
-                n--;     
-            }   
-        }
-
     }
     @Override
     public void keyReleased(KeyEvent e) {
-        addHandler();
-        System.out.println(hasError);
+        addHandler(); // handles the connection between the handler and the
+                       // and the input field
+//        System.out.println(hasError);
         
     }
     public void addHandler() {
-        String s = jtx.getText();
-        lab.setText(s);
-        if(!s.equals("")){
-             Lexer lx = new Lexer(s);
+        String s = jtx.getText(); // gets the text from the panel
+        lab.setText(s);// setting the text of the display
+        if(!s.equals("")){ // checks if the input is not empty
+             Lexer lx = new Lexer(s); // scans for tokens
              lx.scan();
              List<Token> tokens = lx.getTokens();
-             boolean fail = lx.getError();
+             boolean fail = lx.getError(); // checks if any error occured
              if(fail) {
-                 lab.setForeground(new Color(56,56,56));
-                 lab.setText("Wrong character used");
+                 lab.setForeground(new Color(70, 70, 70)); // unhighlights 
+                                                    // the display
+                 lab.setText("Wrong character used"); // error message
+                                            //for lexicographical errors
                  hasError = true;
              } else {
-                 Parser p = new Parser(tokens); 
+                 Parser p = new Parser(tokens);  // primary parsing to 
+                                                // check for parse errors
                  Expression expr = p.parse();
-                 if(p.getErrorStatus()) {
-                     lab.setForeground(new Color(56, 56, 56));
-                     lab.setText("Not a propositional statement");
-                     hasError = true;
+                 if(p.getErrorStatus()) { // if an error occurs
+                     lab.setForeground(new Color(70, 70, 70));// unhighlights 
+                                                    // the display
+                     lab.setText("Not a propositional statement"); // error message
+                     hasError = true; // parse error
                  } else {
-                     String strProp = new ASTPrinter().print(expr);
+                     String strProp = new ASTPrinter().print(expr); // else
+                                           // display the right expressions
                      lab.setForeground(new Color(220, 220, 220));
+                                            // highlight it
                      lab.setText(strProp);
                  }
              } 

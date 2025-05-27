@@ -18,32 +18,37 @@ import java.util.List;
  * @author Franklin Xam
  */
 public class Model {
-    final static InterpreterHandler ih = new InterpreterHandler();
+    // this is the M in MVC design pattern
+    final static InterpreterHandler ih = new InterpreterHandler(); 
+    // Uses the API provided by the interpreter handler 
     static List<String> previousInputs = new ArrayList<>(); 
+    // old inputs
     static List<TruthTable> prevTables = new ArrayList<>();
-
-    static TruthTable tt;
+    // the old tables to be displayed
+    static TruthTable tt; // current truth table
     private String input;
     
-    public void interpret(String propositions){
+    public void interpret(String propositions){ // api provided by interpreter handler
         input = propositions;
         tt = ih.interpret(propositions);
     }
-    public TruthTable readFromCsv(){
+    public TruthTable readFromCsv(){ // reading from csv for old propositions
         try {
-            previousInputs.clear();
-            prevTables.clear();
-            BufferedReader b = new BufferedReader(new FileReader(".\\src\\Saved Tables\\tables.csv"));
+            previousInputs.clear(); // clears the propositions array
+            prevTables.clear(); // clears the tables array
+            BufferedReader b = new BufferedReader(new FileReader(
+                                ".\\src\\Saved Tables\\tables.csv")); // reader
             String s  = "";
             while((s = b.readLine()) != null) {
-                String [] sl = s.split(",");
+                String [] sl = s.split(","); // splits the csv
                 
-                previousInputs.add(sl[0]);
-                String[] ps = sl[1].split("\\|");
-                String[] vs = sl[2].split("\\|");
-                List<String> props =  Arrays.asList(ps);
+                previousInputs.add(sl[0]); // the previous inputs are added
+                String[] ps = sl[1].split("\\|"); // the propositions
+                String[] vs = sl[2].split("\\|"); // the results
+                List<String> props =  Arrays.asList(ps); 
                 List<String> value =  Arrays.asList(vs);
-                prevTables.add(new TruthTable(props, value));
+                prevTables.add(new TruthTable(props, value));   
+                    //add new Table to the list 
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -57,6 +62,7 @@ public class Model {
             if(!f.exists()) {
                 f.createNewFile();
             }       
+            // standard file writing
             fw.append(tt.CSVForm());
             fw.close();
         } catch(IOException e) {

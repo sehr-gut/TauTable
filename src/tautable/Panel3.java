@@ -118,7 +118,7 @@ public class Panel3 extends javax.swing.JPanel {
         return jButton2;
     }
 
-    public JTable getjTable1() {
+    public JTable getjTable1() { // getters
         return jTable1;
     }
     public JTable getjTable3() {
@@ -127,11 +127,11 @@ public class Panel3 extends javax.swing.JPanel {
     public void setjTable1(JTable jTable1) {
         this.jTable1 = jTable1;
     }
-    public void initTable() {
+    public void initTable() { // initializing tsble model
         jTable1.setModel(t);
         
     }
-    public JScrollPane getScrollPane(){
+    public JScrollPane getScrollPane(){ 
         return jScrollPane3;
     }
     public JTable getPrevList() {
