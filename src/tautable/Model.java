@@ -32,7 +32,7 @@ public class Model {
         input = propositions;
         tt = ih.interpret(propositions);
     }
-    public TruthTable readFromCsv(){ // reading from csv for old propositions
+    public void readFromCsv(){ // reading from csv for old propositions
         try {
             previousInputs.clear(); // clears the propositions array
             prevTables.clear(); // clears the tables array
@@ -53,7 +53,6 @@ public class Model {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
     }
     public void saveToCsv() {
         try {

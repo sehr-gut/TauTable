@@ -20,8 +20,8 @@ import javax.swing.table.DefaultTableModel;
 // this uses MVC pattern in handling classes and UI
 public class Controller {
     // The c of the design pattern
-    Model m;
-    View v;
+    private Model m;
+    private View v;
     KeyHandler kh;
     public Controller(View view, Model model) {
         m = model;
@@ -69,7 +69,7 @@ public class Controller {
             }.execute();
         }          
     }
-    private void firstPage() { // restarting the 
+    public void firstPage() { // restarting the 
         v.firstPage();
         v.getGenButton().addActionListener(e -> loadingView());
         initKey();
