@@ -33,22 +33,28 @@ public class Interpreter implements Expression.Visitor<String> {
     }
     @Override
     public String visitLiteralExpr(Expression.Literal expr) {
+        String val;
         StringBuilder sb = new StringBuilder(); // gets the literal value
         if (expr.literal.equals("T")) { // for all true statements
             for(int i = 0; i < n; i++) {
                 sb.append("1");
+                System.out.print(sb.toString());
             }
-            return sb.toString();
+            val = sb.toString();
+            results.add(val);
+            return val;
         }
         else if(expr.literal.equals("F")) { // for all false statements
             for(int i = 0; i < n; i++) {
                 sb.append("0");
             }
-            return sb.toString();
-        }
+            val = sb.toString();
+            results.add(val);
+            return val;
+        } 
         
         // this is the else part
-        String val = getTruthValue(n / (2 << (props.indexOf(expr.literal))));
+         val = getTruthValue(n / (2 << (props.indexOf(expr.literal))));
             // we get the position of the proposition by dividing n by 2 
             // bitshifted by the index
             // example
@@ -169,10 +175,16 @@ public class Interpreter implements Expression.Visitor<String> {
                                   // aphabetical order matters
                                   // without sorting they would have the same
                                   // output
-        while(props.contains('T') || props.contains('F')) {
-            props.remove('T');  // removes Tautology from the list (All true)
-            props.remove('F');  // removes Contradictions from the list (All False)
-        }
+//        if(props.size() > 1) {
+//            while(props.contains("T") || props.contains("F")) {
+//                props.remove("T");  // removes Tautology from the list (All true)
+//                props.remove("F");  // removes Contradictions from the list (All False)
+//            }
+//        }
+//        if (props.isEmpty() && Parser.propositions.size() > 0) {
+//            props.add(Parser.propositions.get(0));
+//        }
+
         n = 1 << props.size(); // returns the needed length of the output
                                 // the same as 2 ^ n
 

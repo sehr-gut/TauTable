@@ -96,13 +96,14 @@ public class Lexer { // token scanner and creation
             advance(); // while you see a letter a space and not a 'v'
                         // continue looping
         }
-        String a = source.substring(start, count).replaceAll(" ", "");
+        String a = source.substring(start, count);
         //make a substring of the source to get the proposition
         if(a.equals("T")) addToken(TokenType.TAUT); // if its a tautology
         else if(a.equals("F")) addToken(TokenType.CONT); // if contradiction
         else addToken(TokenType.PROP, a); // else just add it
     }
     private void addToken(TokenType type, String s) {
+        s = s.replaceAll(" ", "");
         tokens.add(new Token(s, type, start));
     }
     // above is for propositions while below is for others

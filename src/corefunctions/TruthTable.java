@@ -8,8 +8,8 @@ import javax.swing.table.DefaultTableModel;
 public class TruthTable extends DefaultTableModel {
     // truth table handler
     int n;
-    List<String> k; // all the keys 
-    List<String> v; // all the values
+    private List<String> k; // all the keys 
+    private List<String> v; // all the values
     // kinda like hashmaps
     public TruthTable(List<String> s, List<String> v) { // with params 
         this.n = s.size();
